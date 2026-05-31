@@ -1,7 +1,0 @@
-source/
-scripts/__pycache__/
-.vscode/
-.idea/
-*.pyc
-HELPRUS/
-all_gameplay_texts.txt
