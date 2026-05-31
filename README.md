@@ -12,6 +12,7 @@
     *   `Game.tsv`
     *   `HUD.tsv`
     *   `Menu.tsv`
+<<<<<<< HEAD
 3.  Перейдите в папку с установленной игрой (в Steam):
     `...\steamapps\common\REPO\REPO_Data\StreamingAssets\Localizations\`
 4.  Вставьте скачанные файлы прямо в папку `Localizations` (с заменой, если потребуется).
@@ -20,3 +21,10 @@
 
 ## 🐛 Обратная связь
 Если вы нашли ошибку в переводе или опечатку, пожалуйста, создайте Issue в этом репозитории.
+=======
+3.  Перейдите в папку с установленной игрой:
+    `[Папка Steam]\steamapps\common\REPO\REPO_Data\StreamingAssets\Localizations\`
+4.  Вставьте скопированные файлы прямо в папку `Localizations` (не в `Default`!).
+5.  Запустите игру. Она автоматически подхватит русские файлы.
+
+>>>>>>> 6ff85b91059a84e7d354ee7adb70afeb69f24f17
