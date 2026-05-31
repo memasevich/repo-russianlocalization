@@ -1,0 +1,3 @@
+[Menu.tsv] SAVES.SAVE_INFO.PLAYER_LIST: {players:list:{}|,   |   and   }
+[Menu.tsv] LOBBY.PING: {ping} ms
+[Menu.tsv] REGIONS.PING: {ping} ms

@@ -1,0 +1,132 @@
+import json
+import os
+
+# ПОЛНЫЙ словарь перевода REPO (Финальная часть - технические тексты, косметика, регионы)
+translations = {
+    # --- ТЕХНИЧЕСКИЕ НАСТРОЙКИ (МЕНЮ) ---
+    "SETTINGS.GRAPHICS.GLITCH_LOOP": "Цикл помех",
+    "SETTINGS.AUDIO.MICROPHONE": "Микрофон",
+    "SETTINGS.AUDIO.MICROPHONE_VOLUME": "Громкость микрофона",
+    "SETTINGS.AUDIO.TEXT_TO_SPEECH_VOLUME": "Громкость синтеза речи (TTS)",
+    "SETTINGS.CAMERA_ANIMATION.OFF": "Выкл",
+    "SETTINGS.CAMERA_ANIMATION.VERY_LOW": "Оч. низкая",
+    "SETTINGS.CAMERA_ANIMATION.LOW": "Низкая",
+    "SETTINGS.CAMERA_ANIMATION.MEDIUM": "Средняя",
+    "SETTINGS.CAMERA_ANIMATION.DEFAULT": "Стандарт",
+    "SETTINGS.RICH_PRESENCE.OFF": "Выкл",
+    "SETTINGS.RICH_PRESENCE.MINIMAL": "Минимум",
+    "SETTINGS.RICH_PRESENCE.FULL": "Полный",
+    "SETTINGS.WINDOW_MODE.WINDOWED": "В окне",
+    "SETTINGS.WINDOW_MODE.FULLSCREEN": "Полный экран",
+    "SETTINGS.LIGHT_DISTANCE.VERY_LOW": "Оч. низкая",
+    "SETTINGS.LIGHT_DISTANCE.LOW": "Низкая",
+    "SETTINGS.LIGHT_DISTANCE.MEDIUM": "Средняя",
+    "SETTINGS.LIGHT_DISTANCE.HIGH": "Высокая",
+    "SETTINGS.LIGHT_DISTANCE.VERY_HIGH": "Ультра",
+    "SETTINGS.SHADOW_QUALITY.VERY_LOW": "Оч. низкое",
+    "SETTINGS.SHADOW_QUALITY.LOW": "Низкое",
+    "SETTINGS.SHADOW_QUALITY.MEDIUM": "Среднее",
+    "SETTINGS.SHADOW_QUALITY.HIGH": "Высокое",
+    "SETTINGS.SHADOW_QUALITY.VERY_HIGH": "Ультра",
+    "SETTINGS.RENDER_SIZE.SMALL": "Маленький",
+    "SETTINGS.RENDER_SIZE.MEDIUM": "Средний",
+    "SETTINGS.RENDER_SIZE.DEFAULT": "Стандарт",
+    "SETTINGS.MIC_DEVICE.NONE": "Нет",
+    "SETTINGS.BOOL.TOGGLE": "Переключить",
+    "SETTINGS.BOOL.HOLD": "Удерживать",
+    "SETTINGS.GAMEPLAY.CAMERA_SMOOTHING": "Сглаживание камеры",
+    "SETTINGS.GAMEPLAY.CAMERA_SHAKE": "Тряска камеры",
+    "SETTINGS.GAMEPLAY.CAMERA_NOISE": "Шум камеры",
+    "SETTINGS.GAMEPLAY.CAMERA_ANIMATION": "Анимация камеры",
+    "SETTINGS.GAMEPLAY.INVERT_VERTICAL_AIM": "Инверсия по вертикали",
+    "SETTINGS.GAMEPLAY.ITEM_UNEQUIP_AUTO_HOLD": "Автоудержание при снятии",
+    "SETTINGS.GAMEPLAY.RICH_PRESENCE": "Статус в Discord",
+    "SETTINGS.GAMEPLAY.COSMETICS": "Косметика",
+    "SETTINGS.CONTROLS.MOVE_FORWARD": "Вперед",
+    "SETTINGS.CONTROLS.MOVE_LEFT": "Влево",
+    "SETTINGS.CONTROLS.MOVE_BACK": "Назад",
+    "SETTINGS.CONTROLS.MOVE_RIGHT": "Вправо",
+    "SETTINGS.CONTROLS.TUMBLE": "Кувырок",
+    "SETTINGS.CONTROLS.GRABBING": "Захват",
+    "SETTINGS.CONTROLS.GRAB": "Захват",
+    "SETTINGS.CONTROLS.ROTATE": "Вращение",
+    "SETTINGS.CONTROLS.PUSH": "Толкать",
+    "SETTINGS.CONTROLS.PULL": "Тянуть",
+    "SETTINGS.CONTROLS.OTHER": "Другое",
+    "SETTINGS.CONTROLS.INVENTORY_1": "Слот 1",
+    "SETTINGS.CONTROLS.INVENTORY_2": "Слот 2",
+    "SETTINGS.CONTROLS.INVENTORY_3": "Слот 3",
+    "SETTINGS.CONTROLS.CONFIRM": "Подтвердить",
+    "SETTINGS.CONTROLS.BACK": "Назад",
+    "SETTINGS.CONTROLS.MENU": "Меню",
+    "SETTINGS.CONTROLS.SPECTATE_NEXT": "След. игрок",
+    "SETTINGS.CONTROLS.SPECTATE_PREVIOUS": "Пред. игрок",
+    "SETTINGS.CONTROLS.PUSH_TO_TALK": "Рация",
+    "SETTINGS.CONTROLS.TOGGLE_MUTE": "Выкл. звук",
+    "SETTINGS.CONTROLS.PLAYER_EXPRESSIONS": "Эмоции",
+
+    # --- КОСМЕТИКА И ПЕРСОНАЖ ---
+    "COSMETICS.CATEGORY.PRESETS": "Пресеты",
+    "COSMETICS.CATEGORY.HEAD": "Голова",
+    "COSMETICS.CATEGORY.ARMS": "Руки",
+    "COSMETICS.CATEGORY.BODY": "Тело",
+    "COSMETICS.CATEGORY.LEGS": "Ноги",
+    "COSMETICS.TYPE.HAT": "Головной убор",
+    "COSMETICS.TYPE.ARM_RIGHT": "Правая рука",
+    "COSMETICS.TYPE.ARM_LEFT": "Левая рука",
+    "COSMETICS.TYPE.LEG_RIGHT": "Правая нога",
+    "COSMETICS.TYPE.LEG_LEFT": "Левая нога",
+    "COSMETICS.TYPE.EARS": "Уши",
+    "COSMETICS.TYPE.EYEWEAR": "Очки",
+    "COSMETICS.TYPE.FACE_TOP": "Верх лица",
+    "COSMETICS.TYPE.FACE_BOTTOM": "Низ лица",
+    "SETTINGS.CONTROLS.HAPPY": "Радость",
+    "SETTINGS.CONTROLS.SAD": "Грусть",
+    "SETTINGS.CONTROLS.ANGRY": "Злость",
+    "SETTINGS.CONTROLS.SCARED": "Испуг",
+    "SETTINGS.CONTROLS.SUSPICIOUS": "Подозрение",
+    "SETTINGS.CONTROLS.EYES_CLOSED": "Закрыть глаза",
+
+    # --- РЕГИОНЫ И СЕРВЕРА ---
+    "REGIONS.HEADER": "Регионы",
+    "REGIONS.BACK": "Назад",
+    "REGIONS.REGION.PICK_BEST_REGION": "Выбрать лучший регион",
+    "REGIONS.REGION.EU": "Европа",
+    "REGIONS.REGION.US": "США (Восток)",
+    "REGIONS.REGION.USW": "США (Запад)",
+    "REGIONS.REGION.ASIA": "Азия",
+    "REGIONS.REGION.CN": "Китай",
+    "REGIONS.REGION.SA": "Южная Америка",
+    "SERVER_LIST.HEADER": "Список серверов",
+    "SERVER_LIST_SEARCH.HEADER": "Поиск",
+    "SERVER_LIST_CREATE_NEW.HEADER": "Новый сервер",
+
+    # --- ПОПАПЫ И УВЕДОМЛЕНИЯ ---
+    "POPUP.RESET_GAMEPLAY_SETTINGS.HEADER": "Сброс настроек",
+    "POPUP.RESET_GAMEPLAY_SETTINGS.BODY": "Сбросить настройки геймплея?",
+    "POPUP.RESET_GRAPHICS_SETTINGS.HEADER": "Сброс графики",
+    "POPUP.RESET_GRAPHICS_SETTINGS.BODY": "Сбросить настройки графики?",
+    "POPUP.MAIN_MENU.HEADER": "Главное меню",
+    "POPUP.MAIN_MENU.BODY": "Выйти в главное меню?",
+    "POPUP.USE_BACKUP.HEADER": "Восстановление",
+    "POPUP.USE_BACKUP.BODY": "Восстановить сохранение из бэкапа?\n\nЭто действие необратимо!",
+    "POPUP.COSMETICS_RESET_ALL.HEADER": "Очистить всё",
+    "POPUP.COSMETICS_RESET_ALL.BODY": "Снять всю косметику и части тела?",
+    "LOADING.STUCK_PROMPT_TOP_TEXT": "Зависла загрузка?",
+    "LOADING.STUCK_PROMPT_BOTTOM_TEXT": "Нажмите [menu], чтобы выйти в меню",
+    "SPLASH.PHOTOSENSITIVITY_WARNING.HEADER": "Предупреждение",
+    "SPLASH.PHOTOSENSITIVITY_WARNING.SUBHEADER": "В этой игре есть вспышки света.",
+    "SPLASH.PHOTOSENSITIVITY_WARNING.TEXT": "Некоторые люди могут испытывать эпилептические припадки. Если вы почувствуете дискомфорт, немедленно прекратите игру.",
+}
+
+def update_dictionary(dictionary_file, translations):
+    with open(dictionary_file, "r", encoding="utf-8") as f:
+        dictionary = json.load(f)
+    dictionary.update(translations)
+    with open(dictionary_file, "w", encoding="utf-8") as f:
+        json.dump(dictionary, f, ensure_ascii=False, indent=4)
+
+if __name__ == "__main__":
+    dict_file = r"C:\Users\Lecoo\projects\repo-russianlocalization\dictionaries\dictionary.json"
+    update_dictionary(dict_file, translations)
+    print(f"Dictionary finalized with {len(translations)} technical translations.")
